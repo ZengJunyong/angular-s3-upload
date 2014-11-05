@@ -5,13 +5,17 @@ var controllers = angular.module('controllers', []);
 controllers.controller('UploadController',['$scope', function($scope) {
   $scope.sizeLimit      = 10585760; // 10MB in Bytes
   $scope.uploadProgress = 0;
-  $scope.creds          = {};
+  $scope.creds          = {
+      access_key: 'AKIAJ6NGV77RXYRIFY3Q',
+      secret_key: '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',
+      bucket: 'letsgaigai'
+  };
 
   $scope.upload = function() {
     AWS.config.update({ accessKeyId: $scope.creds.access_key, secretAccessKey: $scope.creds.secret_key });
     AWS.config.region = 'us-east-1';
     var bucket = new AWS.S3({ params: { Bucket: $scope.creds.bucket } });
-    
+
     if($scope.file) {
         // Perform File Size Check First
         var fileSize = Math.round(parseInt($scope.file.size));
